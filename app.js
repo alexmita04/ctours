@@ -18,6 +18,7 @@ const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const csp = require('express-csp');
 const compression = require('compression');
+const cors = require('cors');
 
 // requiring the AppError
 const AppError = require('./utils/appError');
@@ -44,6 +45,10 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
+// Initializing CORS
+app.use(cors());
+
+app.options('*', cors());
 
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
