@@ -1,14 +1,14 @@
 // requiring mongoose module
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 // requiring tourModel module
-const Tour = require("./tourModel");
+const Tour = require('./tourModel');
 
 // Defining our tour schema
 const reviewSchema = new mongoose.Schema(
   {
     review: {
       type: String,
-      required: [true, "Review can not be empty!"],
+      required: [true, 'Review can not be empty!'],
     },
     rating: {
       type: Number,
@@ -21,13 +21,13 @@ const reviewSchema = new mongoose.Schema(
     },
     tour: {
       type: mongoose.Schema.ObjectId,
-      ref: "Tour",
-      required: [true, "Review must belong to a tour."],
+      ref: 'Tour',
+      required: [true, 'Review must belong to a tour.'],
     },
     user: {
       type: mongoose.Schema.ObjectId,
-      ref: "User",
-      required: [true, "Review must belong to a user"],
+      ref: 'User',
+      required: [true, 'Review must belong to a user'],
     },
   },
   {
@@ -50,9 +50,9 @@ reviewSchema.pre(/^find/, function (next) {
 
   this.populate({
     // pupulating the user field
-    path: "user",
+    path: 'user',
     // selecting just names and photos on users
-    select: "name photo",
+    select: 'name photo',
   });
   next();
 });
@@ -65,9 +65,9 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
     },
     {
       $group: {
-        _id: "$tour",
+        _id: '$tour',
         nRating: { $sum: 1 },
-        avgRating: { $avg: "$rating" },
+        avgRating: { $avg: '$rating' },
       },
     },
   ]);
@@ -87,7 +87,7 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
   }
 };
 
-reviewSchema.post("save", function () {
+reviewSchema.post('save', function () {
   // this points to current review
   this.constructor.calcAverageRatings(this.tour);
 });
@@ -96,7 +96,6 @@ reviewSchema.post("save", function () {
 // findByIdAndDelete
 reviewSchema.pre(/^findOneAnd/, async function (next) {
   this.r = await this.findOne();
-  // console.log(this.r);
   next();
 });
 
@@ -106,7 +105,7 @@ reviewSchema.post(/^findOneAnd/, async function () {
 });
 
 // Creating the tour model
-const Review = mongoose.model("Review", reviewSchema);
+const Review = mongoose.model('Review', reviewSchema);
 
 // Exporting the module
 module.exports = Review;

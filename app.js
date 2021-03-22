@@ -17,6 +17,7 @@ const hpp = require('hpp');
 // requiring cookie-parser module
 const cookieParser = require('cookie-parser');
 const csp = require('express-csp');
+const compression = require('compression');
 
 // requiring the AppError
 const AppError = require('./utils/appError');
@@ -159,6 +160,8 @@ app.use(
     ],
   })
 );
+
+app.use(compression());
 
 // Test middleware
 app.use((req, res, next) => {
