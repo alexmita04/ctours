@@ -33,7 +33,7 @@ const bookingRouter = require('./routes/bookingRoutes');
 // requiring the view router
 const viewRouter = require('./routes/viewRoutes');
 
-// Initializing the application
+// Initializing the application!
 const app = express();
 
 // setting the view engine to pug which is integrated in the express module
