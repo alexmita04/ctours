@@ -2,7 +2,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // requiring the tourModel module
 const Tour = require('./../models/tourModel');
-const User = uequire('./../models/userModel');
+const User = require('./../models/userModel');
 // requiring the catchAsync module
 const catchAsync = require('./../utils/catchAsync');
 // requiring the handlerFactory module
